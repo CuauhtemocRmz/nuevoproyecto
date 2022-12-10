@@ -7,7 +7,7 @@ const abonosR = require('./abonosR.js');
 
 function routerApi(app){
     const router = express.Router();
-    app.use('/api/v1',router);
+    app.use('/apiSistemaCobros/v1Dev',router);
     router.use('/personas',personasR);
     router.use('/deudas',deudasR);
     router.use('/abonos',abonosR);

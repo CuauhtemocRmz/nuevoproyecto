@@ -9,7 +9,7 @@ class AbonosService{
         //const sentencia = "select * from pruebas";
         //let [data] = await objCon.query(sentencia);
         var data = await models.Pruebas.findAll({raw:true});
-        // console.log(data[1].id+1)
+        console.log(data[1].id+1);
         const resultado = {
             "accion": "todos los abonos",
             "registros": data,

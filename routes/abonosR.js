@@ -18,29 +18,6 @@ router.get('/obtenerAbonos', async (req,res) =>{
     res.json(abonos);
 });
 
-router.get('/actualizarabono', async (req,res) =>{
-    const respuesta = {
-        "Mensaje":"actualizar abonos",
-        "Descripcion": "ruta de actualizar abono",
-    }
-    res.json(respuesta);
-});
-
-router.get('/crearabono', async (req,res) =>{
-    const respuesta = {
-        "Mensaje":"crear abono",
-        "Descripcion": "ruta de creacion de abonos",
-    }
-    res.json(respuesta);
-});
-
-router.get('/borrarabono', async (req,res) =>{
-    const respuesta = {
-        "Mensaje":"borrar abono",
-        "Descripcion": "ruta para borrar abonos ",
-    }
-    res.json(respuesta);
-});
 
 module.exports = router;
 
