@@ -41,7 +41,7 @@ class UsuariosService {
   async obtenerUsuario(id) {
     let resultado;
     let sentencia =
-      "select us.id,us.usuario,us.pass" +
+      "select us.id as udId,us.usuario,us.pass" +
       ",tp.id,tp.identificador,tp.identificador_numerico,tp.descripcion" +
       ",dg.id,dg.nombre,dg.direccion,dg.telefono,dg.email" +
       ",ui.id as userInfoId " +
@@ -64,8 +64,8 @@ class UsuariosService {
     let tipoUsuarioActualizado;
     let datosGeneralesActualizados;
     let sentencia =
-      "update usuarios set usuario:usuario,pass=:pass " +
-      "where id=:id and status !=0";
+      'update usuarios set usuario=:usuario,pass=:pass ' +
+      'where id=:id and status !=0';
     usuarioActualizado = await models.query(sentencia, {
       replacements: {
         id: id,
@@ -78,7 +78,7 @@ class UsuariosService {
 
     sentencia =
       "update datos_generales set " +
-      "nombre:nombre,direccion=:direccion," +
+      "nombre=:nombre,direccion=:direccion" +
       "where id=:id and status !=0";
     datosGeneralesActualizados = await models.query(sentencia, {
       replacements: {
@@ -143,12 +143,13 @@ class UsuariosService {
             }
         );
         const resultado = {
-          "usuarioBorrad": usuarioBorrado,
-          "datosGeneralesBorrados": datosGeneralesBorrados
+          "usuarioBorrado": usuarioBorrado,
+          "datosGeneralesBorrados": datosGeneralesBorrados,
       }
-      return resultado;
-    }catch(error){
-        
+      return resultado;   
+     }catch(error){
+      
+        return error;
     }
   } 
 

@@ -12,6 +12,16 @@ const serviceUsuariosInfo = new UsuariosInfoService();
 const tipoPersonaService = new TipoPersonaService();
 const serviceDatosGenerales = new DatosGeneralesService();
 
+function dep(funcion,nombre){
+    console.log("\n")
+    console.log("---------------");
+    console.log(nombre)
+    console.log(funcion);
+    console.log("---------------");
+    console.log("\n")
+
+}
+
 router.get('/',async(req,res)=>{
     const respuesta = {
         "Mensaje":"Servicio principal de personas",
@@ -26,17 +36,21 @@ router.post('/agregarPersona',async(req,res)=>{
     try{
         const {usuario,tipoPersona,datosGenerales} = req.body;
         const datosGeneralesAgregados = await serviceDatosGenerales.agregarDatosGenerales(datosGenerales);
-        console.log(datosGeneralesAgregados);
+        //depurar en consola
+        dep(datosGeneralesAgregados,"datosGeneralesAgregados");
 
         const usuarioAgregado = await serviceUsuarios.agregarUsuario(usuario);
-        console.log(usuarioAgregado);
+        //depurar en consola
+        dep(usuarioAgregado,"usuarioAgregado");
 
         const usuarioInfoAgregado = {
             "usuariosId":usuarioAgregado[0],
             "tipoPersonaId":tipoPersona.id,
-            "datosGeneralesId":datosGeneralesAgregados
+            "datosGeneralesId":datosGeneralesAgregados[0]
         };
-        //console.log(usuarioInfoAgregado);
+            //depurar en consola
+            dep(usuarioInfoAgregado,"usuarioInfoAgregado");
+
         const personaAgregada = await serviceUsuariosInfo.agregarUsuarioInfo(usuarioInfoAgregado);
     
         const personaNueva = {
@@ -44,8 +58,9 @@ router.post('/agregarPersona',async(req,res)=>{
             "datosGenerales":datosGeneralesAgregados,
             "tipoPersonaId":personaAgregada
         };
+        //depurar en consola
+        dep(personaNueva,"personaNueva");
 
-        //console.log(personaNueva);
         respuesta = {
             "status":200,
             "mensaje":"agregado correctamente",
@@ -82,14 +97,17 @@ router.get('/obtenerPersonas',async(req,res)=>{
     }
     res.json(respuesta);
 });
+
 router.get('/obtenerPersona/:id',async (req,res) =>{
     let respuesta="";
     try{
         const {id} = req.params;
         const usuario = await serviceUsuarios.obtenerUsuario(id);
+        dep (usuario,"usuario")
+
         respuesta = {
             "status":200,
-            "mensaje":"se obtuvo el abono",
+            "mensaje":"se obtuvo la persona",
             "data":usuario
         }
     } catch(error){
@@ -123,16 +141,16 @@ router.patch('/actualizarPersona/:id',async(req,res)=>{
     res.json(respuesta);
 });
 
-router.delete('/borrarPersona/id:id',async(req,res) =>{
+router.delete('/borrarPersona/:id',async(req,res) =>{
     let respuesta="";
     try{
         const {id} = req.params;
-        await serviceUsuarios.borrarUsuario(id);
+        const borrarUsuario = await serviceUsuarios.borrarUsuario(id);
         respuesta = 
         {
             "status":200,
             "mensaje":"eliminado correctamente",
-            "data":id
+            "data":borrarUsuario
         }
     } catch(error){
         respuesta = {
