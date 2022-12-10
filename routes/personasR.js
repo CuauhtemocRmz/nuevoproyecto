@@ -13,12 +13,12 @@ const tipoPersonaService = new TipoPersonaService();
 const serviceDatosGenerales = new DatosGeneralesService();
 
 function dep(funcion,nombre){
-    console.log("\n")
+    console.log("\n");
     console.log("---------------");
-    console.log(nombre)
+    console.log(nombre);
     console.log(funcion);
     console.log("---------------");
-    console.log("\n")
+    console.log("\n");
 
 }
 
@@ -126,15 +126,15 @@ router.patch('/actualizarPersona/:id',async(req,res)=>{
     try{
         const {id}= req.params;
         const usuarioActualizado = await serviceUsuarios.actualizarUsuario(id,req.body);
-        respuesta={
+        respuesta= {
             "status":200,
-            "mensaje":"se actualizo correctamente",
+            "Mensaje":"Se actualizo correctamente",
             "data":usuarioActualizado
         }
     }catch(error){
         respuesta = {
             "status":404,
-            "mensaje": "no se pudo actualizar",
+            "Mensaje": "No se pudo actualizar",
             "error":error
         }
     }
